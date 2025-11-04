@@ -7,6 +7,8 @@ A modern, responsive Next.js application for onboarding trade businesses to thei
 - **Secure Authentication**: JWT-based signup and login
 - **Multi-Step Onboarding**: 6-step wizard with form validation
 - **Auto-Save Progress**: Real-time progress saving to backend
+- **Save & Continue Later**: Resume onboarding from where you left off
+- **Progress Tracking**: Visual progress page showing completion status
 - **Beautiful UI**: Shadcn/ui components with zinc color scheme
 - **Responsive Design**: Works on desktop, tablet, and mobile
 - **Status Tracking**: View submission status after completion
@@ -73,6 +75,7 @@ vasop-client/
 │   │   ├── login/               # Login page
 │   │   ├── signup/              # Signup page
 │   │   ├── onboarding/          # Main onboarding flow
+│   │   ├── progress/            # Progress summary page
 │   │   ├── status/              # Submission status page
 │   │   ├── layout.js            # Root layout
 │   │   └── globals.css          # Global styles
