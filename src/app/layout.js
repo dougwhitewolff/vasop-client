@@ -8,6 +8,8 @@ const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
   display: "swap",
+  fallback: ["system-ui", "arial"],
+  preload: true,
 });
 
 export const metadata = {
