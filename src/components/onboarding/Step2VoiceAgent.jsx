@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Sparkles, Mic } from "lucide-react";
+import { Sparkles, Mic, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,6 +18,7 @@ const voiceAgentSchema = z.object({
     required_error: "Please select a personality type",
   }),
   greeting: z.string().min(20, "Greeting must be at least 20 characters").max(500, "Greeting must be 500 characters or less"),
+  voice: z.string().min(1, "Please select a voice"),
 });
 
 const personalities = [
@@ -38,8 +39,21 @@ const personalities = [
   },
 ];
 
+const voices = [
+  { value: "ash", label: "Voice 1" },
+  { value: "alloy", label: "Voice 2" },
+  { value: "ballad", label: "Voice 3" },
+  { value: "coral", label: "Voice 4" },
+  { value: "echo", label: "Voice 5" },
+  { value: "sage", label: "Voice 6" },
+  { value: "shimmer", label: "Voice 7" },
+  { value: "verse", label: "Voice 8" },
+];
+
 export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) {
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [currentAudio, setCurrentAudio] = useState(null);
 
   const {
     register,
@@ -49,12 +63,13 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
     formState: { errors },
   } = useForm({
     resolver: zodResolver(voiceAgentSchema),
-    defaultValues: data || {},
+    defaultValues: data || { voice: "ash" },
   });
 
   const agentName = watch("agentName", "");
   const greeting = watch("greeting", "");
   const selectedPersonality = watch("agentPersonality");
+  const selectedVoice = watch("voice", "ash");
 
   const generateGreeting = () => {
     setIsGenerating(true);
@@ -74,6 +89,71 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
 
   const onSubmit = (formData) => {
     onNext(formData);
+  };
+
+  const playVoicePreview = async () => {
+    if (!greeting || !selectedVoice) {
+      toast.error("Please enter a greeting message and select a voice");
+      return;
+    }
+
+    // Stop current audio if playing
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+    setIsPlayingAudio(true);
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/onboarding/preview-voice`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: greeting,
+          voice: selectedVoice,
+        }),
+      });
+
+      if (!response.ok) {
+        // Try to get error message from response
+        let errorMessage = "Failed to generate voice preview";
+        try {
+          const errorData = await response.json();
+          if (errorData.error) {
+            errorMessage = errorData.error;
+          }
+        } catch (e) {
+          // If response is not JSON, use default message
+        }
+        throw new Error(errorMessage);
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      
+      setCurrentAudio(audio);
+
+      audio.onended = () => {
+        setIsPlayingAudio(false);
+        URL.revokeObjectURL(audioUrl);
+      };
+
+      audio.onerror = () => {
+        setIsPlayingAudio(false);
+        toast.error("Failed to play audio");
+        URL.revokeObjectURL(audioUrl);
+      };
+
+      await audio.play();
+    } catch (error) {
+      console.error("Voice preview error:", error);
+      toast.error(error.message || "Failed to generate voice preview");
+      setIsPlayingAudio(false);
+    }
   };
 
   return (
@@ -211,13 +291,69 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
             <Sparkles className="h-4 w-4 mr-2" />
             {isGenerating ? "Generating..." : "Auto-Generate Greeting"}
           </Button>
+        </Card>
+
+        {/* Voice Selection */}
+        <Card className="p-6 space-y-4">
+          <h3 className="font-semibold text-lg text-zinc-900 mb-4">
+            Voice Selection
+          </h3>
+
+          <div className="space-y-3">
+            <Label>
+              Choose Voice <span className="text-red-500">*</span>
+            </Label>
+            <p className="text-xs text-zinc-500 mb-3">
+              Select the voice that will be used for your AI assistant
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {voices.map((voice) => (
+                <label
+                  key={voice.value}
+                  className={`
+                    relative flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition-all
+                    ${selectedVoice === voice.value
+                      ? "border-zinc-900 bg-zinc-50"
+                      : "border-zinc-300 hover:border-zinc-400"
+                    }
+                  `}
+                >
+                  <input
+                    type="radio"
+                    value={voice.value}
+                    {...register("voice")}
+                    className="sr-only"
+                  />
+                  <span className={`text-sm font-medium ${selectedVoice === voice.value ? "text-zinc-900" : "text-zinc-600"}`}>
+                    {voice.label}
+                  </span>
+                </label>
+              ))}
+            </div>
+            {errors.voice && (
+              <p className="text-sm text-red-500">{errors.voice.message}</p>
+            )}
+          </div>
 
           {/* Preview Card */}
           {greeting && (
             <div className="bg-zinc-50 border border-zinc-300 rounded-lg p-4 animate-fade-in">
-              <div className="flex items-center gap-2 mb-2">
-                <Mic className="h-4 w-4 text-zinc-700" />
-                <span className="text-sm font-semibold text-zinc-900">Preview</span>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <Mic className="h-4 w-4 text-zinc-700" />
+                  <span className="text-sm font-semibold text-zinc-900">Preview</span>
+                </div>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  onClick={playVoicePreview}
+                  disabled={isPlayingAudio || !greeting || !selectedVoice}
+                  className="flex items-center gap-2"
+                >
+                  <Volume2 className="h-4 w-4" />
+                  {isPlayingAudio ? "Playing..." : "Listen"}
+                </Button>
               </div>
               <p className="text-zinc-700 italic leading-relaxed">
                 "{greeting}"

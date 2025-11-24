@@ -126,6 +126,12 @@ export function Step6Review({
               </p>
             </div>
             <div>
+              <p className="text-zinc-600 mb-1">Voice</p>
+              <p className="font-medium text-zinc-900 capitalize">
+                {voiceAgent?.voice || "ash"}
+              </p>
+            </div>
+            <div>
               <p className="text-zinc-600 mb-1">Greeting</p>
               <div className="bg-zinc-50 border border-zinc-300 rounded-lg p-3 mt-2">
                 <p className="text-zinc-900 italic">"{voiceAgent?.greeting}"</p>
