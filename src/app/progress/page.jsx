@@ -98,7 +98,7 @@ export default function ProgressPage() {
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <div>
             <h1 className="text-lg font-bold text-zinc-900">
-              4Trades Voice Agent Onboarding
+              4Trades.ai Voice Agent Onboarding
             </h1>
             <p className="text-sm text-zinc-600">Welcome back, {user.name}</p>
           </div>
@@ -242,7 +242,7 @@ export default function ProgressPage() {
       <footer className="bg-white border-t border-zinc-300 mt-16">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <p className="text-sm text-center text-zinc-600">
-            © 2024 4Trades Voice Agent Onboarding. All rights reserved.
+            © 2025 4Trades.ai Voice Agent Onboarding. All rights reserved.
           </p>
         </div>
       </footer>

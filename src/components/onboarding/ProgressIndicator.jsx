@@ -7,8 +7,7 @@ const steps = [
   { number: 2, label: "Voice Agent Config" },
   { number: 3, label: "Collection Fields" },
   { number: 4, label: "Emergency Handling" },
-  { number: 5, label: "Email Config" },
-  { number: 6, label: "Review & Submit" },
+  { number: 5, label: "Review & Submit" },
 ];
 
 export function ProgressIndicator({ currentStep, onStepClick }) {

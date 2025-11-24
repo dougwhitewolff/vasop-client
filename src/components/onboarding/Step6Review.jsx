@@ -324,7 +324,7 @@ export function Step6Review({
           variant="outline"
           onClick={onBack}
         >
-          ← Back to Step 5
+          ← Back to Step 4
         </Button>
         <div className="flex gap-4">
           <Button

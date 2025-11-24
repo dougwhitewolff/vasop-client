@@ -78,7 +78,7 @@ export default function StatusPage() {
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
           <div>
             <h1 className="text-lg font-bold text-zinc-900">
-              4Trades Voice Agent Onboarding
+              4Trades.ai Voice Agent Onboarding
             </h1>
             <p className="text-sm text-zinc-600">Welcome, {user.name}</p>
           </div>
@@ -110,7 +110,7 @@ export default function StatusPage() {
             </h2>
 
             <p className="text-lg text-zinc-600 mb-6">
-              Your application is being reviewed by our team
+              Your request is being reviewed by our team
             </p>
 
             <div className="bg-zinc-50 border border-zinc-300 rounded-lg p-4 mb-6">
@@ -194,10 +194,10 @@ export default function StatusPage() {
             <p className="text-zinc-900 font-medium">
               Contact us at{" "}
               <a
-                href="mailto:support@4trades.com"
+                href="mailto:info@4trades.ai"
                 className="text-zinc-900 underline hover:text-zinc-700"
               >
-                support@4trades.com
+                info@4trades.ai
               </a>
             </p>
           </Card>
@@ -208,7 +208,7 @@ export default function StatusPage() {
       <footer className="bg-white border-t border-zinc-300 mt-16">
         <div className="max-w-3xl mx-auto px-4 py-6">
           <p className="text-sm text-center text-zinc-600">
-            © 2024 4Trades Voice Agent Onboarding. All rights reserved.
+            © 2025 4Trades.ai Voice Agent Onboarding. All rights reserved.
           </p>
         </div>
       </footer>

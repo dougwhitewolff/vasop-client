@@ -13,7 +13,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "4Trades Voice Agent Onboarding",
+  title: "4Trades.ai Voice Agent Onboarding",
   description: "Set up your AI voice agent for your business",
 };
 

@@ -68,6 +68,17 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Text selection highlighting */
+  ::selection {
+    background-color: rgba(24, 24, 27, 0.2); /* zinc-900 with 20% opacity */
+    color: inherit;
+  }
+  
+  ::-moz-selection {
+    background-color: rgba(24, 24, 27, 0.2); /* zinc-900 with 20% opacity */
+    color: inherit;
+  }
 }
 
 @layer utilities {

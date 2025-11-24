@@ -54,7 +54,7 @@ export default function LoginPage() {
         {/* Header */}
         <div className="text-center mb-8 animate-slide-up">
           <h1 className="text-2xl font-bold text-zinc-900 mb-2">
-            4Trades Voice Agent Onboarding
+            4Trades.ai Voice Agent Onboarding
           </h1>
           <p className="text-zinc-600 text-sm">
             Set up your AI voice agent

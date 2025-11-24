@@ -12,7 +12,7 @@ import { Card } from "@/components/ui/card";
 const businessProfileSchema = z.object({
   businessName: z.string().min(2, "Business name is required"),
   industry: z.string().min(1, "Please select an industry"),
-  website: z.string().url("Please enter a valid website URL").optional().or(z.literal("")),
+  website: z.string().optional().or(z.literal("")),
   phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email address"),
   address: z.object({
@@ -126,7 +126,7 @@ export function Step1BusinessProfile({ data, onNext, onSave }) {
             <Label htmlFor="website">Website (Optional)</Label>
             <Input
               id="website"
-              type="url"
+              type="text"
               placeholder="www.4trades.ai"
               className="placeholder:text-zinc-400"
               {...register("website")}

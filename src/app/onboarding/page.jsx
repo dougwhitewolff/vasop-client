@@ -11,7 +11,6 @@ import { Step1BusinessProfile } from "@/components/onboarding/Step1BusinessProfi
 import { Step2VoiceAgent } from "@/components/onboarding/Step2VoiceAgent";
 import { Step3CollectionFields } from "@/components/onboarding/Step3CollectionFields";
 import { Step4EmergencyHandling } from "@/components/onboarding/Step4EmergencyHandling";
-import { Step5EmailConfig } from "@/components/onboarding/Step5EmailConfig";
 import { Step6Review } from "@/components/onboarding/Step6Review";
 import { toast } from "sonner";
 
@@ -24,7 +23,6 @@ export default function OnboardingPage() {
     voiceAgent: null,
     collectionFields: null,
     emergencyHandling: null,
-    emailConfig: null,
   });
 
   useEffect(() => {
@@ -54,7 +52,6 @@ export default function OnboardingPage() {
             voiceAgent: submission.voiceAgentConfig || null,
             collectionFields: submission.voiceAgentConfig?.collectionFields || null,
             emergencyHandling: submission.voiceAgentConfig?.emergencyHandling || null,
-            emailConfig: submission.emailConfig || null,
           });
           setCurrentStep(submission.currentStep || 1);
         }
@@ -80,7 +77,10 @@ export default function OnboardingPage() {
         },
         collectionFields: data.collectionFields,
         emergencyHandling: data.emergencyHandling,
-        emailConfig: data.emailConfig,
+        emailConfig: {
+          recipientEmail: data.collectionFields?.summaryEmail || '',
+          summaryEnabled: true,
+        },
       };
       
       await onboardingAPI.saveProgress(payload);
@@ -106,9 +106,6 @@ export default function OnboardingPage() {
         break;
       case 4:
         updatedData.emergencyHandling = stepData;
-        break;
-      case 5:
-        updatedData.emailConfig = stepData;
         break;
     }
     
@@ -139,9 +136,6 @@ export default function OnboardingPage() {
       case 4:
         updatedData.emergencyHandling = stepData;
         break;
-      case 5:
-        updatedData.emailConfig = stepData;
-        break;
     }
     
     setFormData(updatedData);
@@ -169,7 +163,10 @@ export default function OnboardingPage() {
           collectionFields: formData.collectionFields,
           emergencyHandling: formData.emergencyHandling,
         },
-        emailConfig: formData.emailConfig,
+        emailConfig: {
+          recipientEmail: formData.collectionFields?.summaryEmail || '',
+          summaryEnabled: true,
+        },
       };
       
       const result = await onboardingAPI.submit(payload);
@@ -213,7 +210,7 @@ export default function OnboardingPage() {
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <div>
             <h1 className="text-lg font-bold text-zinc-900">
-              4Trades Voice Agent Onboarding
+              4Trades.ai Voice Agent Onboarding
             </h1>
             <p className="text-sm text-zinc-600">Welcome, {user.name}</p>
           </div>
@@ -273,25 +270,16 @@ export default function OnboardingPage() {
           )}
 
           {currentStep === 5 && (
-            <Step5EmailConfig
-              data={formData.emailConfig}
-              onNext={(data) => handleNext(data, 5)}
-              onBack={handleBack}
-              onSave={(data) => handleSave(data, 5)}
-            />
-          )}
-
-          {currentStep === 6 && (
             <Step6Review
               businessProfile={formData.businessProfile}
               voiceAgent={formData.voiceAgent}
               collectionFields={formData.collectionFields}
               emergencyHandling={formData.emergencyHandling}
-              emailConfig={formData.emailConfig}
+              emailConfig={{ recipientEmail: formData.collectionFields?.summaryEmail || '', summaryEnabled: true }}
               onEdit={handleStepClick}
               onSubmit={handleSubmit}
               onBack={handleBack}
-              onSave={() => handleSave(formData, 6)}
+              onSave={() => handleSave(formData, 5)}
             />
           )}
         </div>
@@ -301,7 +289,7 @@ export default function OnboardingPage() {
       <footer className="bg-white border-t border-zinc-300 mt-16">
         <div className="max-w-5xl mx-auto px-4 py-6">
           <p className="text-sm text-center text-zinc-600">
-            © 2024 4Trades Voice Agent Onboarding. All rights reserved.
+            © 2025 4Trades.ai Voice Agent Onboarding. All rights reserved.
           </p>
         </div>
       </footer>
