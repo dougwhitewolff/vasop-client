@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Sparkles, Mic, Volume2 } from "lucide-react";
+import { Sparkles, Mic, Volume2, Pause, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -42,17 +42,16 @@ const personalities = [
 const voices = [
   { value: "ash", label: "Voice 1" },
   { value: "alloy", label: "Voice 2" },
-  { value: "ballad", label: "Voice 3" },
-  { value: "coral", label: "Voice 4" },
-  { value: "echo", label: "Voice 5" },
-  { value: "sage", label: "Voice 6" },
-  { value: "shimmer", label: "Voice 7" },
-  { value: "verse", label: "Voice 8" },
+  { value: "coral", label: "Voice 3" },
+  { value: "echo", label: "Voice 4" },
+  { value: "sage", label: "Voice 5" },
+  { value: "shimmer", label: "Voice 6" },
 ];
 
 export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [currentAudio, setCurrentAudio] = useState(null);
 
   const {
@@ -97,6 +96,14 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
       return;
     }
 
+    // If audio exists and is paused, resume it
+    if (currentAudio && isPaused) {
+      currentAudio.play();
+      setIsPlayingAudio(true);
+      setIsPaused(false);
+      return;
+    }
+
     // Stop current audio if playing
     if (currentAudio) {
       currentAudio.pause();
@@ -104,6 +111,7 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
     }
 
     setIsPlayingAudio(true);
+    setIsPaused(false);
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/onboarding/preview-voice`, {
@@ -139,11 +147,13 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
 
       audio.onended = () => {
         setIsPlayingAudio(false);
+        setIsPaused(false);
         URL.revokeObjectURL(audioUrl);
       };
 
       audio.onerror = () => {
         setIsPlayingAudio(false);
+        setIsPaused(false);
         toast.error("Failed to play audio");
         URL.revokeObjectURL(audioUrl);
       };
@@ -153,6 +163,25 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
       console.error("Voice preview error:", error);
       toast.error(error.message || "Failed to generate voice preview");
       setIsPlayingAudio(false);
+      setIsPaused(false);
+    }
+  };
+
+  const pauseVoicePreview = () => {
+    if (currentAudio && isPlayingAudio) {
+      currentAudio.pause();
+      setIsPlayingAudio(false);
+      setIsPaused(true);
+    }
+  };
+
+  const stopVoicePreview = () => {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      setIsPlayingAudio(false);
+      setIsPaused(false);
+      setCurrentAudio(null);
     }
   };
 
@@ -306,7 +335,7 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
             <p className="text-xs text-zinc-500 mb-3">
               Select the voice that will be used for your AI assistant
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {voices.map((voice) => (
                 <label
                   key={voice.value}
@@ -343,20 +372,47 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
                   <Mic className="h-4 w-4 text-zinc-700" />
                   <span className="text-sm font-semibold text-zinc-900">Preview</span>
                 </div>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline"
-                  onClick={playVoicePreview}
-                  disabled={isPlayingAudio || !greeting || !selectedVoice}
-                  className="flex items-center gap-2"
-                >
-                  <Volume2 className="h-4 w-4" />
-                  {isPlayingAudio ? "Playing..." : "Listen"}
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={playVoicePreview}
+                    disabled={isPlayingAudio || !greeting || !selectedVoice}
+                    className="flex items-center gap-2"
+                  >
+                    <Volume2 className="h-4 w-4" />
+                    {isPaused ? "Resume" : isPlayingAudio ? "Playing..." : "Listen"}
+                  </Button>
+                  {(isPlayingAudio || isPaused) && (
+                    <>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        onClick={pauseVoicePreview}
+                        disabled={!isPlayingAudio}
+                        className="flex items-center gap-2"
+                      >
+                        <Pause className="h-4 w-4" />
+                        Pause
+                      </Button>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        onClick={stopVoicePreview}
+                        className="flex items-center gap-2"
+                      >
+                        <Square className="h-4 w-4" />
+                        Stop
+                      </Button>
+                    </>
+                  )}
+                </div>
               </div>
               <p className="text-zinc-700 italic leading-relaxed">
-                "{greeting}"
+                &quot;{greeting}&quot;
               </p>
             </div>
           )}
