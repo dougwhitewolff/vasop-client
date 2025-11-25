@@ -27,26 +27,26 @@ export function Step6Review({
   return (
     <div className="space-y-6 animate-slide-up">
       <div>
-        <h2 className="text-2xl font-semibold text-zinc-900 mb-2">
+        <h2 className="text-3xl font-bold text-[#1C1C1C] mb-2">
           Review Your Information
         </h2>
-        <p className="text-zinc-600">
+        <p className="text-[#71717A] text-lg">
           Please review all your information before submitting
         </p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         {/* Business Profile */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-lg text-zinc-900">
+        <Card className="p-8 border-2 border-[#E0E0E0] shadow-xl backdrop-blur-sm bg-white/80">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="font-bold text-xl text-[#1C1C1C]">
               Business Profile
             </h3>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => onEdit(1)}
-              className="text-zinc-600 hover:text-zinc-900"
+              className="text-[#FF7F11] hover:text-[#E46F00] hover:bg-[#FF7F11]/10 font-semibold transition-all duration-300"
             >
               <Edit2 className="h-4 w-4 mr-2" />
               Edit Step 1
@@ -98,16 +98,16 @@ export function Step6Review({
         </Card>
 
         {/* Voice Agent Configuration */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-lg text-zinc-900">
+        <Card className="p-8 border-2 border-[#E0E0E0] shadow-xl backdrop-blur-sm bg-white/80">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="font-bold text-xl text-[#1C1C1C]">
               Voice Agent Configuration
             </h3>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => onEdit(2)}
-              className="text-zinc-600 hover:text-zinc-900"
+              className="text-[#FF7F11] hover:text-[#E46F00] hover:bg-[#FF7F11]/10 font-semibold transition-all duration-300"
             >
               <Edit2 className="h-4 w-4 mr-2" />
               Edit Step 2
@@ -141,16 +141,16 @@ export function Step6Review({
         </Card>
 
         {/* Information Collection */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-lg text-zinc-900">
+        <Card className="p-8 border-2 border-[#E0E0E0] shadow-xl backdrop-blur-sm bg-white/80">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="font-bold text-xl text-[#1C1C1C]">
               Information Collection
             </h3>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => onEdit(3)}
-              className="text-zinc-600 hover:text-zinc-900"
+              className="text-[#FF7F11] hover:text-[#E46F00] hover:bg-[#FF7F11]/10 font-semibold transition-all duration-300"
             >
               <Edit2 className="h-4 w-4 mr-2" />
               Edit Step 3
@@ -223,16 +223,16 @@ export function Step6Review({
         </Card>
 
         {/* Emergency Handling */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-lg text-zinc-900">
+        <Card className="p-8 border-2 border-[#E0E0E0] shadow-xl backdrop-blur-sm bg-white/80">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="font-bold text-xl text-[#1C1C1C]">
               Emergency Call Handling
             </h3>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => onEdit(4)}
-              className="text-zinc-600 hover:text-zinc-900"
+              className="text-[#FF7F11] hover:text-[#E46F00] hover:bg-[#FF7F11]/10 font-semibold transition-all duration-300"
             >
               <Edit2 className="h-4 w-4 mr-2" />
               Edit Step 4
@@ -268,16 +268,16 @@ export function Step6Review({
         </Card>
 
         {/* Email Configuration */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-lg text-zinc-900">
+        <Card className="p-8 border-2 border-[#E0E0E0] shadow-xl backdrop-blur-sm bg-white/80">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="font-bold text-xl text-[#1C1C1C]">
               Email Configuration
             </h3>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => onEdit(5)}
-              className="text-zinc-600 hover:text-zinc-900"
+              className="text-[#FF7F11] hover:text-[#E46F00] hover:bg-[#FF7F11]/10 font-semibold transition-all duration-300"
             >
               <Edit2 className="h-4 w-4 mr-2" />
               Edit Step 5
@@ -329,21 +329,23 @@ export function Step6Review({
           type="button"
           variant="outline"
           onClick={onBack}
+          className="h-12 px-6 border-2 border-[#E0E0E0] text-[#2E2E2E] hover:bg-[#F5F5F5] hover:border-[#FF7F11]/50 font-semibold rounded-xl transition-all duration-300"
         >
-          ← Back to Step 4
+          ← Back to Step 5
         </Button>
         <div className="flex gap-4">
           <Button
             type="button"
             variant="outline"
             onClick={onSave}
+            className="h-12 px-6 border-2 border-[#E0E0E0] text-[#2E2E2E] hover:bg-[#F5F5F5] hover:border-[#FF7F11]/50 font-semibold rounded-xl transition-all duration-300"
           >
             Save & Continue Later
           </Button>
           <Button
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="bg-zinc-900 hover:bg-zinc-800 text-zinc-100"
+            className="h-12 px-8 bg-gradient-orange hover:shadow-[0_8px_24px_rgba(255,127,17,0.4)] text-white font-bold rounded-xl shine-effect hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? "Submitting..." : "Submit for Review →"}
           </Button>

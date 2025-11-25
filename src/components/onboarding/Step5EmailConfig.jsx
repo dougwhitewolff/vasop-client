@@ -31,49 +31,49 @@ export function Step5EmailConfig({ data, onNext, onBack, onSave }) {
   return (
     <div className="space-y-6 animate-slide-up">
       <div>
-        <h2 className="text-2xl font-semibold text-zinc-900 mb-2">
+        <h2 className="text-3xl font-bold text-[#1C1C1C] mb-2">
           Email Configuration
         </h2>
-        <p className="text-zinc-600">
+        <p className="text-[#71717A] text-lg">
           Where should we send call summaries?
         </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Email Address */}
-        <Card className="p-6 space-y-4">
-          <p className="text-sm text-zinc-600">
-            After each call, you'll receive an email with the customer's information 
+        <Card className="p-8 space-y-5 border-2 border-[#E0E0E0] shadow-xl backdrop-blur-sm bg-white/80">
+          <p className="text-base text-[#71717A]">
+            After each call, you&apos;ll receive an email with the customer&apos;s information 
             and conversation details.
           </p>
 
           <div className="space-y-2">
-            <Label htmlFor="recipientEmail">
+            <Label htmlFor="recipientEmail" className="text-[#1C1C1C] font-semibold">
               Send Call Summaries To <span className="text-red-500">*</span>
             </Label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#71717A]" />
               <Input
                 id="recipientEmail"
                 type="email"
                 placeholder="contact@4trades.ai"
-                className="pl-10 placeholder:text-zinc-400"
+                className="h-12 pl-12 border-2 border-[#E0E0E0] focus:border-[#FF7F11] focus:ring-[#FF7F11]/20 placeholder:text-[#A1A1AA] transition-all duration-300"
                 {...register("recipientEmail")}
               />
             </div>
             {errors.recipientEmail && (
-              <p className="text-sm text-red-500">{errors.recipientEmail.message}</p>
+              <p className="text-sm text-red-500 font-medium">{errors.recipientEmail.message}</p>
             )}
-            <p className="text-xs text-zinc-500">
-              You'll receive an email after each customer call with their details and what they needed
+            <p className="text-sm text-[#71717A]">
+              You&apos;ll receive an email after each customer call with their details and what they needed
             </p>
           </div>
 
           {/* Always Enabled */}
-          <div className="flex items-center gap-2 p-3 bg-zinc-50 border border-zinc-300 rounded-lg">
-            <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+          <div className="flex items-center gap-3 p-4 bg-green-50 border-2 border-green-200 rounded-xl">
+            <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
             <div className="flex-1">
-              <p className="text-sm font-medium text-zinc-900">
+              <p className="text-base font-semibold text-green-900">
                 Email summaries are always enabled
               </p>
             </div>
@@ -116,11 +116,12 @@ export function Step5EmailConfig({ data, onNext, onBack, onSave }) {
         </Card>
 
         {/* Action Buttons */}
-        <div className="flex gap-4 justify-between pt-4">
+        <div className="flex gap-4 justify-between pt-8">
           <Button
             type="button"
             variant="outline"
             onClick={onBack}
+            className="h-12 px-6 border-2 border-[#E0E0E0] text-[#2E2E2E] hover:bg-[#F5F5F5] hover:border-[#FF7F11]/50 font-semibold rounded-xl transition-all duration-300"
           >
             ← Back to Step 4
           </Button>
@@ -132,10 +133,14 @@ export function Step5EmailConfig({ data, onNext, onBack, onSave }) {
                 const data = getValues();
                 onSave(data);
               }}
+              className="h-12 px-6 border-2 border-[#E0E0E0] text-[#2E2E2E] hover:bg-[#F5F5F5] hover:border-[#FF7F11]/50 font-semibold rounded-xl transition-all duration-300"
             >
               Save & Continue Later
             </Button>
-            <Button type="submit" className="bg-zinc-900 hover:bg-zinc-800 text-zinc-100">
+            <Button 
+              type="submit" 
+              className="h-12 px-8 bg-gradient-orange hover:shadow-[0_8px_24px_rgba(255,127,17,0.4)] text-white font-bold rounded-xl shine-effect hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 transition-all duration-300"
+            >
               Continue to Step 6 →
             </Button>
           </div>

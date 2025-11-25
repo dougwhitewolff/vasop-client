@@ -66,42 +66,42 @@ export function Step3CollectionFields({ data, onNext, onBack, onSave }) {
   return (
     <div className="space-y-6 animate-slide-up">
       <div>
-        <h2 className="text-2xl font-semibold text-zinc-900 mb-2">
+        <h2 className="text-3xl font-bold text-[#1C1C1C] mb-2">
           Information Collection
         </h2>
-        <p className="text-zinc-600">
+        <p className="text-[#71717A] text-lg">
           Choose what information your agent should collect from callers
         </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* Call Summary Email */}
-        <Card className="p-4 bg-blue-50 border-blue-200">
+        <Card className="p-6 bg-[#FF7F11]/10 border-2 border-[#FF7F11]/30 rounded-xl">
           <div className="flex items-start gap-3">
-            <Inbox className="h-5 w-5 text-blue-700 flex-shrink-0 mt-0.5" />
+            <Inbox className="h-6 w-6 text-[#FF7F11] flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <h3 className="font-semibold text-base text-blue-900 leading-none mb-1">
+              <h3 className="font-bold text-lg text-[#1C1C1C] leading-none mb-2">
                 Call Summary Email
               </h3>
-              <p className="text-sm text-blue-800 leading-snug mb-2">
+              <p className="text-base text-[#2E2E2E] leading-snug mb-3">
                 Where should we send the email summary after each call?
               </p>
               
-              <div className="space-y-1.5">
-                <Label htmlFor="summaryEmail" className="text-blue-900 text-sm">
+              <div className="space-y-2">
+                <Label htmlFor="summaryEmail" className="text-[#1C1C1C] font-semibold">
                   Email Address <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="summaryEmail"
                   type="email"
                   placeholder="owner@4trades.ai"
-                  className="bg-white placeholder:text-zinc-400"
+                  className="h-12 bg-white border-2 border-[#E0E0E0] focus:border-[#FF7F11] focus:ring-[#FF7F11]/20 placeholder:text-[#A1A1AA] transition-all duration-300"
                   {...register("summaryEmail")}
                 />
                 {errors.summaryEmail && (
-                  <p className="text-sm text-red-600">{errors.summaryEmail.message}</p>
+                  <p className="text-sm text-red-500 font-medium">{errors.summaryEmail.message}</p>
                 )}
-                <p className="text-xs text-blue-700">
+                <p className="text-sm text-[#71717A]">
                   This email will receive a summary with customer details after every call
                 </p>
               </div>
@@ -110,12 +110,13 @@ export function Step3CollectionFields({ data, onNext, onBack, onSave }) {
         </Card>
 
         {/* Standard Fields */}
-        <Card className="p-4">
+        <Card className="p-8 space-y-5 border-2 border-[#E0E0E0] shadow-xl backdrop-blur-sm bg-white/80">
           <div className="mb-2">
-            <h3 className="font-semibold text-base text-zinc-900 leading-none mb-1">
+            <h3 className="font-bold text-xl text-[#1C1C1C] leading-none mb-2 flex items-center gap-2">
+              <CheckCircle className="h-6 w-6 text-[#FF7F11]" />
               Standard Fields
             </h3>
-            <p className="text-sm text-zinc-600 leading-snug">
+            <p className="text-base text-[#71717A] leading-snug">
               These are the details your agent will ask callers for during conversations
             </p>
           </div>
@@ -350,49 +351,51 @@ export function Step3CollectionFields({ data, onNext, onBack, onSave }) {
         </Card>
 
         {/* Custom Questions */}
-        <Card className="p-4">
-          <div className="mb-3">
-            <h3 className="font-semibold text-base text-zinc-900 leading-none mb-1">
+        <Card className="p-8 space-y-5 border-2 border-[#E0E0E0] shadow-xl backdrop-blur-sm bg-white/80">
+          <div className="mb-2">
+            <h3 className="font-bold text-xl text-[#1C1C1C] leading-none mb-2 flex items-center gap-2">
+              <Plus className="h-6 w-6 text-[#FF7F11]" />
               Custom Questions
             </h3>
-            <p className="text-sm text-zinc-600 leading-snug">
+            <p className="text-base text-[#71717A] leading-snug">
               Add specific questions unique to your business
             </p>
           </div>
 
           {fields.length === 0 ? (
-            <div className="text-center py-8 bg-zinc-50 rounded-lg border-2 border-dashed border-zinc-300">
-              <p className="text-zinc-600 mb-4">No custom questions yet</p>
-              <p className="text-sm text-zinc-500 mb-6">
+            <div className="text-center py-12 bg-[#F5F5F5] rounded-xl border-2 border-dashed border-[#E0E0E0]">
+              <p className="text-[#2E2E2E] font-semibold mb-2">No custom questions yet</p>
+              <p className="text-base text-[#71717A] mb-6">
                 Add questions specific to your business
               </p>
               <Button
                 type="button"
                 variant="outline"
                 onClick={addCustomField}
+                className="h-12 px-6 border-2 border-[#FF7F11]/50 text-[#FF7F11] hover:bg-[#FF7F11]/10 hover:border-[#FF7F11] font-semibold rounded-xl transition-all duration-300"
               >
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="h-5 w-5 mr-2" />
                 Add Custom Question
               </Button>
             </div>
           ) : (
             <div className="space-y-4">
               {fields.map((field, index) => (
-                <Card key={field.id} className="p-4 bg-zinc-50 border-zinc-300">
+                <Card key={field.id} className="p-5 bg-[#F5F5F5] border-2 border-[#E0E0E0] shadow-md rounded-xl">
                   <div className="flex items-start gap-3">
                     <div className="flex-1 space-y-3">
                       <div className="space-y-2">
-                        <Label htmlFor={`question-${index}`}>
+                        <Label htmlFor={`question-${index}`} className="text-[#1C1C1C] font-semibold">
                           Custom Question {index + 1}
                         </Label>
                         <Input
                           id={`question-${index}`}
                           placeholder="e.g., What type of fence are you interested in?"
-                          className="placeholder:text-zinc-400"
+                          className="h-12 border-2 border-[#E0E0E0] focus:border-[#FF7F11] focus:ring-[#FF7F11]/20 placeholder:text-[#A1A1AA] bg-white transition-all duration-300"
                           {...register(`customFields.${index}.question`)}
                         />
                         {errors.customFields?.[index]?.question && (
-                          <p className="text-sm text-red-500">
+                          <p className="text-sm text-red-500 font-medium">
                             {errors.customFields[index].question.message}
                           </p>
                         )}
@@ -411,7 +414,7 @@ export function Step3CollectionFields({ data, onNext, onBack, onSave }) {
                         />
                         <Label
                           htmlFor={`required-${index}`}
-                          className="font-normal cursor-pointer"
+                          className="font-medium cursor-pointer text-[#2E2E2E]"
                         >
                           Make this required
                         </Label>
@@ -422,9 +425,9 @@ export function Step3CollectionFields({ data, onNext, onBack, onSave }) {
                       variant="ghost"
                       size="icon"
                       onClick={() => remove(index)}
-                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                      className="text-red-500 hover:text-red-700 hover:bg-red-100 rounded-xl transition-all duration-300"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="h-5 w-5" />
                     </Button>
                   </div>
                 </Card>
@@ -435,15 +438,15 @@ export function Step3CollectionFields({ data, onNext, onBack, onSave }) {
                   type="button"
                   variant="outline"
                   onClick={addCustomField}
-                  className="w-full"
+                  className="w-full h-12 border-2 border-[#FF7F11]/50 text-[#FF7F11] hover:bg-[#FF7F11]/10 hover:border-[#FF7F11] font-semibold rounded-xl transition-all duration-300"
                 >
-                  <Plus className="h-4 w-4 mr-2" />
+                  <Plus className="h-5 w-5 mr-2" />
                   Add Another Custom Question
                 </Button>
               )}
 
               {fields.length >= 5 && (
-                <p className="text-sm text-zinc-500 text-center">
+                <p className="text-base text-[#71717A] text-center font-medium">
                   Maximum 5 custom questions reached
                 </p>
               )}
@@ -452,11 +455,12 @@ export function Step3CollectionFields({ data, onNext, onBack, onSave }) {
         </Card>
 
         {/* Action Buttons */}
-        <div className="flex gap-4 justify-between pt-4">
+        <div className="flex gap-4 justify-between pt-8">
           <Button
             type="button"
             variant="outline"
             onClick={onBack}
+            className="h-12 px-6 border-2 border-[#E0E0E0] text-[#2E2E2E] hover:bg-[#F5F5F5] hover:border-[#FF7F11]/50 font-semibold rounded-xl transition-all duration-300"
           >
             ← Back to Step 2
           </Button>
@@ -468,10 +472,14 @@ export function Step3CollectionFields({ data, onNext, onBack, onSave }) {
                 const data = watch();
                 onSave(data);
               }}
+              className="h-12 px-6 border-2 border-[#E0E0E0] text-[#2E2E2E] hover:bg-[#F5F5F5] hover:border-[#FF7F11]/50 font-semibold rounded-xl transition-all duration-300"
             >
               Save & Continue Later
             </Button>
-            <Button type="submit" className="bg-zinc-900 hover:bg-zinc-800 text-zinc-100">
+            <Button 
+              type="submit" 
+              className="h-12 px-8 bg-gradient-orange hover:shadow-[0_8px_24px_rgba(255,127,17,0.4)] text-white font-bold rounded-xl shine-effect hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 transition-all duration-300"
+            >
               Continue to Step 4 →
             </Button>
           </div>

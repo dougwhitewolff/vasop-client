@@ -15,6 +15,10 @@ const poppins = Poppins({
 export const metadata = {
   title: "4Trades.ai Voice Agent Onboarding",
   description: "Set up your AI voice agent for your business",
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/assets/favicon/favicon_light.webp',
+  },
 };
 
 export default function RootLayout({ children }) {

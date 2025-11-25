@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
 import { onboardingAPI } from "@/lib/api";
 import { LogOut } from "lucide-react";
@@ -209,21 +210,37 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-100">
+    <div className="min-h-screen bg-gradient-to-br from-[#F5F5F5] via-white to-[#F5F5F5] relative">
+      {/* Animated background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-10 w-96 h-96 bg-[#FF7F11]/5 rounded-full blur-3xl animate-pulse-subtle"></div>
+        <div className="absolute bottom-40 left-10 w-80 h-80 bg-[#FF7F11]/5 rounded-full blur-3xl animate-pulse-subtle" style={{ animationDelay: "1.5s" }}></div>
+      </div>
+
       {/* Header */}
-      <header className="bg-white border-b border-zinc-300 sticky top-0 z-50">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold text-zinc-900">
-              4Trades.ai Voice Agent Onboarding
-            </h1>
-            <p className="text-sm text-zinc-600">Welcome, {user.name}</p>
+          <header className="bg-[#1C1C1C]/95 backdrop-blur-md border-b-2 border-[#FF7F11]/20 sticky top-0 z-50 shadow-lg">
+        <div className="max-w-5xl mx-auto px-4 py-5 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Image 
+              src="/assets/logos/4Trades_Banner_Logo.webp" 
+              alt="4Trades.ai Logo" 
+              width={180}
+              height={36}
+              priority
+              className="h-9 w-auto"
+            />
+            <div className="border-l-2 border-[#E0E0E0] pl-4">
+              <h1 className="text-lg font-bold text-white">
+                Voice Agent Onboarding
+              </h1>
+              <p className="text-sm text-[#FFB266] font-medium">Welcome, {user.name}</p>
+            </div>
           </div>
           <Button
             variant="ghost"
             size="sm"
             onClick={handleLogout}
-            className="text-zinc-600 hover:text-zinc-900"
+            className="text-white hover:text-[#FFB266] hover:bg-[#FF7F11]/20 transition-all duration-300 font-medium"
           >
             <LogOut className="h-4 w-4 mr-2" />
             Logout
@@ -232,7 +249,7 @@ export default function OnboardingPage() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-4 py-8">
+      <main className="max-w-5xl mx-auto px-4 py-10 relative z-10">
         <ProgressIndicator currentStep={currentStep} onStepClick={handleStepClick} />
 
         <div className="mt-8">
@@ -291,9 +308,9 @@ export default function OnboardingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-zinc-300 mt-16">
+      <footer className="bg-white/80 backdrop-blur-md border-t-2 border-[#E0E0E0] mt-20 relative z-10">
         <div className="max-w-5xl mx-auto px-4 py-6">
-          <p className="text-sm text-center text-zinc-600">
+          <p className="text-sm text-center text-[#71717A]">
             © 2025 4Trades.ai Voice Agent Onboarding. All rights reserved.
           </p>
         </div>

@@ -59,20 +59,21 @@ export function Step4EmergencyHandling({ data, businessData, voiceAgentData, onN
   return (
     <div className="space-y-6 animate-slide-up">
       <div>
-        <h2 className="text-2xl font-semibold text-zinc-900 mb-2">
+        <h2 className="text-3xl font-bold text-[#1C1C1C] mb-2">
           Emergency Call Handling (Optional)
         </h2>
-        <p className="text-zinc-600">
+        <p className="text-[#71717A] text-lg">
           Allow customers to reach you immediately for urgent situations
         </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Main Toggle */}
-        <Card className="p-6">
+        <Card className="p-8 space-y-5 border-2 border-[#E0E0E0] shadow-xl backdrop-blur-sm bg-white/80">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <h3 className="font-semibold text-lg text-zinc-900 mb-2">
+              <h3 className="font-bold text-xl text-[#1C1C1C] mb-2 flex items-center gap-2">
+                <AlertCircle className="h-6 w-6 text-[#FF7F11]" />
                 Emergency Call Forwarding
               </h3>
               <p className="text-sm text-zinc-600">
@@ -113,26 +114,26 @@ export function Step4EmergencyHandling({ data, businessData, voiceAgentData, onN
         {enabled && (
           <div className="space-y-6 animate-slide-up">
             {/* Forward To Number */}
-            <Card className="p-6 space-y-4">
+            <Card className="p-8 space-y-5 border-2 border-[#E0E0E0] shadow-xl backdrop-blur-sm bg-white/80">
               <div className="space-y-2">
-                <Label htmlFor="forwardToNumber">
+                <Label htmlFor="forwardToNumber" className="text-[#1C1C1C] font-semibold">
                   Phone Number for Emergency Forwarding <span className="text-red-500">*</span>
                 </Label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#71717A]" />
                   <Input
                     id="forwardToNumber"
                     type="tel"
                     placeholder="(555) 123-4567"
-                    className="pl-10 placeholder:text-zinc-400"
+                    className="h-12 pl-12 border-2 border-[#E0E0E0] focus:border-[#FF7F11] focus:ring-[#FF7F11]/20 placeholder:text-[#A1A1AA] transition-all duration-300"
                     {...register("forwardToNumber")}
                   />
                 </div>
                 {errors.forwardToNumber && (
-                  <p className="text-sm text-red-500">{errors.forwardToNumber.message}</p>
+                  <p className="text-sm text-red-500 font-medium">{errors.forwardToNumber.message}</p>
                 )}
-                <p className="text-xs text-zinc-500">
-                  This number will receive emergency calls immediately. Make sure it's always available.
+                <p className="text-sm text-[#71717A]">
+                  This number will receive emergency calls immediately. Make sure it&apos;s always available.
                 </p>
               </div>
             </Card>
@@ -143,11 +144,12 @@ export function Step4EmergencyHandling({ data, businessData, voiceAgentData, onN
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-4 justify-between pt-4">
+        <div className="flex gap-4 justify-between pt-8">
           <Button
             type="button"
             variant="outline"
             onClick={onBack}
+            className="h-12 px-6 border-2 border-[#E0E0E0] text-[#2E2E2E] hover:bg-[#F5F5F5] hover:border-[#FF7F11]/50 font-semibold rounded-xl transition-all duration-300"
           >
             ← Back to Step 3
           </Button>
@@ -159,10 +161,14 @@ export function Step4EmergencyHandling({ data, businessData, voiceAgentData, onN
                 const data = watch();
                 onSave(data);
               }}
+              className="h-12 px-6 border-2 border-[#E0E0E0] text-[#2E2E2E] hover:bg-[#F5F5F5] hover:border-[#FF7F11]/50 font-semibold rounded-xl transition-all duration-300"
             >
               Save & Continue Later
             </Button>
-            <Button type="submit" className="bg-zinc-900 hover:bg-zinc-800 text-zinc-100">
+            <Button 
+              type="submit" 
+              className="h-12 px-8 bg-gradient-orange hover:shadow-[0_8px_24px_rgba(255,127,17,0.4)] text-white font-bold rounded-xl shine-effect hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 transition-all duration-300"
+            >
               Continue to Step 5 →
             </Button>
           </div>
