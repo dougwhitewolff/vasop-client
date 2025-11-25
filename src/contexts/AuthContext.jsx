@@ -20,8 +20,14 @@ export function AuthProvider({ children }) {
         }
       } catch (error) {
         console.error("Auth check failed:", error);
-        // Token is invalid or expired, clear it
-        localStorage.removeItem("vasop-token");
+        
+        // Only remove token if it's actually invalid (401 Unauthorized)
+        // Don't remove for network errors or other temporary issues
+        if (error.status === 401) {
+          localStorage.removeItem("vasop-token");
+        }
+        // For network errors or other issues, keep the token
+        // The user will see a loading state and can retry
       } finally {
         setIsLoading(false);
       }

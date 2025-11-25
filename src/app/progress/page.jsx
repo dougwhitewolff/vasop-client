@@ -19,11 +19,16 @@ const STEPS = [
 
 export default function ProgressPage() {
   const router = useRouter();
-  const { user, logout } = useAuth();
+  const { user, logout, isLoading: authLoading } = useAuth();
   const [submission, setSubmission] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Don't redirect while still checking authentication
+    if (authLoading) {
+      return;
+    }
+
     if (!user) {
       router.push("/login");
       return;
@@ -57,7 +62,7 @@ export default function ProgressPage() {
     };
 
     loadProgress();
-  }, [user, router]);
+  }, [user, router, authLoading]);
 
   const handleContinue = () => {
     router.push("/onboarding");
@@ -68,7 +73,7 @@ export default function ProgressPage() {
     router.push("/login");
   };
 
-  if (loading || !submission) {
+  if (authLoading || loading || !submission) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-zinc-100">
         <div className="text-center">

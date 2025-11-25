@@ -16,7 +16,7 @@ import { toast } from "sonner";
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { user, logout } = useAuth();
+  const { user, logout, isLoading } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     businessProfile: null,
@@ -26,6 +26,11 @@ export default function OnboardingPage() {
   });
 
   useEffect(() => {
+    // Don't redirect while still checking authentication
+    if (isLoading) {
+      return;
+    }
+
     if (!user) {
       router.push("/login");
       return;
@@ -63,7 +68,7 @@ export default function OnboardingPage() {
     };
 
     loadDraft();
-  }, [user, router]);
+  }, [user, router, isLoading]);
 
   const saveDraft = async (data, step) => {
     try {
@@ -192,7 +197,7 @@ export default function OnboardingPage() {
     router.push("/login");
   };
 
-  if (!user) {
+  if (isLoading || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-zinc-100">
         <div className="text-center">

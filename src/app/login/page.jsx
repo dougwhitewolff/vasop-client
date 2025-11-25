@@ -92,9 +92,17 @@ export default function LoginPage() {
 
               {/* Password */}
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-zinc-900 font-medium">
-                  Password
-                </Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password" className="text-zinc-900 font-medium">
+                    Password
+                  </Label>
+                  <Link
+                    href="/forgot-password"
+                    className="text-sm text-zinc-600 hover:text-zinc-900 hover:underline"
+                  >
+                    Forgot your password?
+                  </Link>
+                </div>
                 <div className="relative">
                   <Input
                     id="password"
@@ -132,7 +140,7 @@ export default function LoginPage() {
 
             {/* Sign Up Link */}
             <div className="mt-6 text-center text-sm text-zinc-600">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/signup"
                 className="font-semibold text-zinc-900 hover:underline"

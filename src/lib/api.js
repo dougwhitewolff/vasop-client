@@ -48,12 +48,19 @@ async function apiRequest(endpoint, options = {}) {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      const error = new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      error.status = response.status;
+      error.isHttpError = true;
+      throw error;
     }
 
     return await response.json();
   } catch (error) {
     console.error("API request error:", error);
+    // If this is not an HTTP error (e.g., network error), mark it as such
+    if (!error.isHttpError && !error.status) {
+      error.isNetworkError = true;
+    }
     throw error;
   }
 }
@@ -86,6 +93,20 @@ export const authAPI = {
 
   logout() {
     removeAuthToken();
+  },
+
+  async forgotPassword(data) {
+    return await apiRequest("/auth/forgot-password", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  },
+
+  async resetPassword(data) {
+    return await apiRequest("/auth/reset-password", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
   },
 };
 

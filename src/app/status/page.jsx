@@ -11,11 +11,16 @@ import { toast } from "sonner";
 
 export default function StatusPage() {
   const router = useRouter();
-  const { user, logout } = useAuth();
+  const { user, logout, isLoading } = useAuth();
   const [submission, setSubmission] = useState(null);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    // Don't redirect while still checking authentication
+    if (isLoading) {
+      return;
+    }
+
     if (!user) {
       router.push("/login");
       return;
@@ -38,7 +43,7 @@ export default function StatusPage() {
     };
 
     loadSubmission();
-  }, [user, router]);
+  }, [user, router, isLoading]);
 
   const handleCopyId = () => {
     if (submission?.submissionId) {
@@ -54,7 +59,7 @@ export default function StatusPage() {
     router.push("/login");
   };
 
-  if (!user || !submission) {
+  if (isLoading || !user || !submission) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-zinc-100">
         <div className="text-center">
