@@ -178,7 +178,7 @@ export default function StatusPage() {
           </Card>
 
           {/* Info Card */}
-          <Card className="p-8 bg-[#FF7F11]/10 border-2 border-[#FF7F11]/30 animate-slide-up border-accent-left" style={{ animationDelay: "0.6s" }}>
+          <Card className="p-8 bg-[#FF7F11]/10 animate-slide-up border-accent-left" style={{ animationDelay: "0.6s" }}>
             <h3 className="font-bold text-[#FF7F11] mb-5 text-xl flex items-center gap-2">
               <span className="text-2xl">🚀</span>
               What&apos;s Next?

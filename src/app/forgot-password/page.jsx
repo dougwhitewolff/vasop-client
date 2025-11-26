@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { ArrowLeft, Mail, ShieldCheck, Lock, RefreshCw, Sparkles } from "lucide-react";
+import { ArrowLeft, Mail, ShieldCheck, Lock, RefreshCw, Sparkles, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,6 +32,8 @@ export default function ForgotPasswordPage() {
   const [step, setStep] = useState(1); // 1: Enter email, 2: Enter OTP & new password
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register: registerEmail,
@@ -245,13 +247,26 @@ export default function ForgotPasswordPage() {
                     <Lock className="h-4 w-4 text-[#FF7F11]" />
                     New Password
                   </Label>
-                  <Input
-                    id="newPassword"
-                    type="password"
-                    placeholder="Enter new password"
-                    className="bg-[#1C1C1C] border-2 border-[#3E3E3E] text-white placeholder:text-[#A1A1AA] h-12 pl-4 pr-4 rounded-xl focus:border-[#FF7F11] focus:ring-2 focus:ring-[#FF7F11]/20 transition-all duration-300"
-                    {...registerReset("newPassword")}
-                  />
+                  <div className="relative group">
+                    <Input
+                      id="newPassword"
+                      type={showNewPassword ? "text" : "password"}
+                      placeholder="Enter new password"
+                      className="bg-[#1C1C1C] border-2 border-[#3E3E3E] text-white placeholder:text-[#A1A1AA] h-12 pl-4 pr-12 rounded-xl focus:border-[#FF7F11] focus:ring-2 focus:ring-[#FF7F11]/20 transition-all duration-300"
+                      {...registerReset("newPassword")}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-[#71717A] hover:text-[#FF7F11] transition-all duration-300 hover:scale-110"
+                    >
+                      {showNewPassword ? (
+                        <EyeOff className="h-5 w-5" />
+                      ) : (
+                        <Eye className="h-5 w-5" />
+                      )}
+                    </button>
+                  </div>
                   {resetErrors.newPassword && (
                     <p className="text-sm text-red-500 flex items-center gap-1 animate-slide-in-right">
                       <span className="inline-block w-1 h-1 rounded-full bg-red-500"></span>
@@ -266,13 +281,26 @@ export default function ForgotPasswordPage() {
                     <Lock className="h-4 w-4 text-[#FF7F11]" />
                     Confirm New Password
                   </Label>
-                  <Input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Confirm new password"
-                    className="bg-[#1C1C1C] border-2 border-[#3E3E3E] text-white placeholder:text-[#A1A1AA] h-12 pl-4 pr-4 rounded-xl focus:border-[#FF7F11] focus:ring-2 focus:ring-[#FF7F11]/20 transition-all duration-300"
-                    {...registerReset("confirmPassword")}
-                  />
+                  <div className="relative group">
+                    <Input
+                      id="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Confirm new password"
+                      className="bg-[#1C1C1C] border-2 border-[#3E3E3E] text-white placeholder:text-[#A1A1AA] h-12 pl-4 pr-12 rounded-xl focus:border-[#FF7F11] focus:ring-2 focus:ring-[#FF7F11]/20 transition-all duration-300"
+                      {...registerReset("confirmPassword")}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-[#71717A] hover:text-[#FF7F11] transition-all duration-300 hover:scale-110"
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff className="h-5 w-5" />
+                      ) : (
+                        <Eye className="h-5 w-5" />
+                      )}
+                    </button>
+                  </div>
                   {resetErrors.confirmPassword && (
                     <p className="text-sm text-red-500 flex items-center gap-1 animate-slide-in-right">
                       <span className="inline-block w-1 h-1 rounded-full bg-red-500"></span>
