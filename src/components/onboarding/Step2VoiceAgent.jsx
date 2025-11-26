@@ -541,6 +541,7 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
                           left: '0',
                           objectPosition: 'center top'
                         }}
+                        unoptimized
                       />
                     </div>
                   </div>
