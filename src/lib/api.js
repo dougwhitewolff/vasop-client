@@ -70,7 +70,7 @@ async function apiRequest(endpoint, options = {}) {
  */
 export const authAPI = {
   async signup(data) {
-    const response = await apiRequest("/auth/signup", {
+    const response = await apiRequest("/vasop/auth/signup", {
       method: "POST",
       body: JSON.stringify(data),
     });
@@ -79,7 +79,7 @@ export const authAPI = {
   },
 
   async login(data) {
-    const response = await apiRequest("/auth/login", {
+    const response = await apiRequest("/vasop/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
     });
@@ -88,7 +88,7 @@ export const authAPI = {
   },
 
   async getProfile() {
-    return await apiRequest("/auth/me");
+    return await apiRequest("/vasop/auth/me");
   },
 
   logout() {
@@ -96,14 +96,14 @@ export const authAPI = {
   },
 
   async forgotPassword(data) {
-    return await apiRequest("/auth/forgot-password", {
+    return await apiRequest("/vasop/auth/forgot-password", {
       method: "POST",
       body: JSON.stringify(data),
     });
   },
 
   async resetPassword(data) {
-    return await apiRequest("/auth/reset-password", {
+    return await apiRequest("/vasop/auth/reset-password", {
       method: "POST",
       body: JSON.stringify(data),
     });
@@ -115,18 +115,18 @@ export const authAPI = {
  */
 export const onboardingAPI = {
   async saveProgress(data) {
-    return await apiRequest("/onboarding/save", {
+    return await apiRequest("/vasop/onboarding/save", {
       method: "POST",
       body: JSON.stringify(data),
     });
   },
 
   async getMySubmission() {
-    return await apiRequest("/onboarding/my-submission");
+    return await apiRequest("/vasop/onboarding/my-submission");
   },
 
   async submit(data) {
-    return await apiRequest("/onboarding/submit", {
+    return await apiRequest("/vasop/onboarding/submit", {
       method: "POST",
       body: JSON.stringify(data),
     });

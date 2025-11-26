@@ -45,8 +45,8 @@ const voices = [
   { value: "alloy", label: "Voice 2", image: "/avatars/voice2.png" },
   { value: "coral", label: "Voice 3", image: "/avatars/voice3.png" },
   { value: "echo", label: "Voice 4", image: "/avatars/voice4.png" },
-  { value: "sage", label: "Voice 5", image: "/avatars/voice5.png" },
-  { value: "shimmer", label: "Voice 6", image: "/avatars/voice6.png" },
+  { value: "shimmer", label: "Voice 5", image: "/avatars/voice5.png" },
+  { value: "sage", label: "Voice 6", image: "/avatars/voice6.png" },
 ];
 
 export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) {
@@ -84,7 +84,7 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
   // Check content with OpenAI
   const checkContentModeration = async (text) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/onboarding/check-content`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/vasop/onboarding/check-content`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -247,7 +247,7 @@ export function Step2VoiceAgent({ data, businessData, onNext, onBack, onSave }) 
     setIsPaused(false);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/onboarding/preview-voice`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/vasop/onboarding/preview-voice`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
